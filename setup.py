@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
-from codecs import open
-from sys import exit, version
 import sys
 
 
-if version < '1.0.0':
-    print("Python 1 is not supported...")
+if sys.version_info < (3, 6):
+    print("Python 3.6 or higher is required...")
     sys.exit(1)
 
-with open('README.md') as f:
+with open('README.md', encoding='utf-8') as f:
     longd = f.read()
 
 setup(
