@@ -1,5 +1,5 @@
 # Pull base image
-FROM python:3
+FROM python:3.11-slim
 
 # Set the working directory to /code
 WORKDIR /code
@@ -9,7 +9,12 @@ ADD . /code
 
 # Udate and install all in the container
 RUN apt-get update && \
-    apt-get install -y
+    apt-get install -y \\
+    xvfb \\
+    libx11-6 \\
+    libxext6 \\
+    xauth \\
+    && rm -rf /var/lib/apt/lists/*
 
 # Install pipenv and install all dependency
 RUN pip install --upgrade pip
