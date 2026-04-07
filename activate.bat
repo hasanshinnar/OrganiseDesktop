@@ -1,5 +1,5 @@
 @echo off
-:: START ADMIN AUTO-ELEVATE - IT CHECKS IF THE USER HAS ADMIN PRIVILEGES AND RESTARTS THE SCRIPT WITH ELEVATED PRIVILEGES IF NOT
+:: Check for administrative privileges if not, relaunch the script with admin rights
 >nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
 if '%errorlevel%' NEQ '0' (
     echo Requesting administrative privileges...
@@ -17,8 +17,7 @@ if '%errorlevel%' NEQ '0' (
     :: IMPORTANT: Move to the directory where the script is located
     cd /d "%~dp0"
 
-
-:: Your original logic starts here
+:: Check if the virtual environment folder exists if not create it and load the environment
 if exist organise_desktop_env\ (
     call :load_env
 ) else (
