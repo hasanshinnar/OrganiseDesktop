@@ -1,11 +1,12 @@
 import sys, json, os
 from .organiseDesktop import undo, organise_desktop
 from .cronController import schedule_end, schedule_start
+
 from tkinter import *
 from tkinter import messagebox as tkMessageBox
 
 pwd = os.path.dirname(os.path.abspath(__file__))
-Extensions = json.load(open(os.path.join(pwd, 'Extension.json'), 'r'))
+Extensions = json.load(open(os.path.join(pwd, "Extension.json"), "r"))
 folders = list(Extensions.keys())
 
 
@@ -70,25 +71,35 @@ class App(Frame):
 def main():
     root = Tk()
     # root.resizable = False            # commenting this approach and applying the below one.
-    root.resizable(
+    """root.resizable(
         FALSE, FALSE
     )  # To make the application's size constant and restore button in windows as greyed out(with width=350 and height=330 as mentioned below)
     root.minsize(width=350, height=330)
     root.maxsize(width=350, height=330)
-
+"""
     """Logic to launch the app in center - start"""
-    positionRight = int(root.winfo_screenwidth() / 2 - 330 / 2)  # considering width=330
+    """ positionRight = int(root.winfo_screenwidth() / 2 - 330 / 2)  # considering width=330
     positionDown = int(
         root.winfo_screenheight() / 2 - 350 / 2
     )  # considering height=350
-    root.geometry("+{}+{}".format(positionRight, positionDown))
+    root.geometry("+{}+{}".format(positionRight, positionDown))"""
     """Logic to launch the app in center - end"""
-
     app = App(root)
     root.protocol("WM_DELETE_WINDOW", app.quit_all)
     app.mainloop()
     root.destroy()
 
 
+def clean_desktop():
+    root = Tk()
+    app = App(root)
+    root.protocol("WM_DELETE_WINDOW", app.quit_all)
+    app.mainloop()
+    try:
+        root.destroy()
+    except TclError:
+        pass  # Handle cases where root is already destroyed
+
+
 if __name__ == "__main__":
-    main()
+    clean_desktop()
